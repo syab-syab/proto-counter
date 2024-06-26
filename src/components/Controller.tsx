@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 15rem;
 `
 
 const Reduce = styled.div`

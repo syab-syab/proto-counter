@@ -2,9 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import Controller from './Controller'
 
+const backgroundStyle: string = `
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(85, 85, 85, 1));
+`
+
 const Wrapper = styled.div`
-  background: white;
-  padding: 5rem 0 0 0;
+  ${backgroundStyle}
+  padding: 5rem;
+  height: 90vh;
+
 `
 
 const NumberWrapper = styled.div`
@@ -26,11 +32,13 @@ const BtnWrapper = styled.div`
   display: flex;
 `
 
-const LinkBtn = styled.div`
+const Btn = styled.div`
   background: #2C2C2C;
+  color: white;
+  font-size: 1.6rem;
   flex-grow: 1;
   border: white 0.1rem solid;
-
+  padding: 1rem 0;
 `
 
 const Link = styled.a`
@@ -39,14 +47,7 @@ const Link = styled.a`
   font-size: 1.6rem;
 `
 
-const ResetBtn = styled.div`
-  background: #2C2C2C;
-  color: white;
-  font-size: 1.6rem;
-  flex-grow: 1;
-  border: white 0.1rem solid;
 
-`
 
 const Main = () => {
   return (
@@ -58,12 +59,15 @@ const Main = () => {
         <NumberItem>1</NumberItem>
       </NumberWrapper>
       <BtnWrapper>
-        <LinkBtn>
+        <Btn>
           <Link>リンク</Link>
-        </LinkBtn>
-        <ResetBtn>
+        </Btn>
+        <Btn>
+          コピー
+        </Btn>
+        <Btn>
           リセット
-        </ResetBtn>
+        </Btn>
       </BtnWrapper>
       <Controller />
     </Wrapper>

@@ -1,8 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const backgroundStyle: string = `
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(85, 85, 85, 1));
+`
+
 const Wrapper = styled.header`
-  background: #2C2C2C;
+  ${backgroundStyle}
   padding: 1.5rem 0
 `
 
