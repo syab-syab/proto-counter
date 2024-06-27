@@ -23,12 +23,16 @@ const Add = styled.div`
   font-size: 5rem;
   border: white 0.1rem solid;
 `
+type Props = {
+  AddNum: () => void
+  ReduceNum: () => void
+}
 
-const Controller = () => {
+const Controller = (props: Props) => {
   return (
     <Wrapper>
-      <Reduce>－</Reduce>
-      <Add>＋</Add>
+      <Reduce onClick={props.ReduceNum}>－</Reduce>
+      <Add onClick={props.AddNum}>＋</Add>
     </Wrapper>
   )
 }

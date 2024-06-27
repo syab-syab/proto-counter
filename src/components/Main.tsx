@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Controller from './Controller'
+import { useState } from 'react'
 
 const backgroundStyle: string = `
   background-image: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(85, 85, 85, 1));
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   ${backgroundStyle}
   padding: 5rem;
   height: 90vh;
@@ -50,6 +51,23 @@ const Link = styled.a`
 
 
 const Main = () => {
+  const [count, setCount] = useState<number>(0)
+
+  const addCount = ():void => {
+    setCount(count+1)
+  }
+
+  const reduceCount = ():void => {
+    // >=にしたいけど挙動がおかしくなる
+    if(count > 0) {
+      setCount(count-1)
+    } else {
+      setCount(0)
+    }
+    
+  }
+
+
   return (
     <Wrapper>
       <NumberWrapper>
@@ -58,6 +76,7 @@ const Main = () => {
         <NumberItem>0</NumberItem>
         <NumberItem>1</NumberItem>
       </NumberWrapper>
+      <p>{count}</p>
       <BtnWrapper>
         <Btn>
           <Link>リンク</Link>
@@ -69,7 +88,7 @@ const Main = () => {
           リセット
         </Btn>
       </BtnWrapper>
-      <Controller />
+      <Controller AddNum={addCount} ReduceNum={reduceCount} />
     </Wrapper>
   )
 }
