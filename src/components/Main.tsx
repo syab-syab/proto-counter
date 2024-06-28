@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Controller from './Controller'
 import { useState } from 'react'
+import { localSetItem, localGetItem } from '../functions/localStorageFunc'
 
 const backgroundStyle: string = `
   background-image: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(85, 85, 85, 1));
@@ -51,40 +52,65 @@ const Link = styled.a`
 
 
 const Main = () => {
-  const [count, setCount] = useState<number>(0)
+  const localCountKey: string = "local-count-key"
+
+  const localCountValue: string = localGetItem(localCountKey)
+
+
+  const [count, setCount]
+    = useState<number>(!!localCountValue===false ? 0 : Number(localCountValue))
 
   const addCount = ():void => {
-    setCount(count+1)
+    if (count < 9999) {
+      setCount(count+1)
+      localSetItem(localCountKey, String(count+1))
+    } else {
+      alert("もう無理")
+    }
+    
   }
 
   const reduceCount = ():void => {
     // >=にしたいけど挙動がおかしくなる
     if(count > 0) {
       setCount(count-1)
+      localSetItem(localCountKey, String(count-1))
     } else {
       setCount(0)
+      localSetItem(localCountKey, "0")
     }
-    
   }
 
+  const copyCount = (): void => {
+    navigator.clipboard.writeText(count.toString())
+  }
+
+  const resetCount = ():void => {
+    setCount(0)
+    localSetItem(localCountKey, "0")
+  }
+
+  const countArr:Array<string> = count.toString().padStart(4, '0').split('')
 
   return (
     <Wrapper>
       <NumberWrapper>
-        <NumberItem>0</NumberItem>
-        <NumberItem>0</NumberItem>
-        <NumberItem>0</NumberItem>
-        <NumberItem>1</NumberItem>
+        {
+          countArr.map((c, i) => {
+            return (
+              <NumberItem key={i}>{c}</NumberItem>      
+            )
+          })
+        }
       </NumberWrapper>
-      <p>{count}</p>
       <BtnWrapper>
         <Btn>
-          <Link>リンク</Link>
+          <Link href='https://homemade-apps.vercel.app/' target='_blank'>リンク</Link>
         </Btn>
-        <Btn>
+        <Btn onClick={copyCount}>
           コピー
         </Btn>
-        <Btn>
+        <Btn onClick={resetCount}>
           リセット
         </Btn>
       </BtnWrapper>
